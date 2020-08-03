@@ -21,7 +21,8 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
   clientID: keys.googleClientID,  //on initialise une nouvelle instance passport avec la strategie google avec les deux arguments de la fonction
   clientSecret: keys.googleClientSecret,
-  callbackURL: '/auth/google/callback'  //url de retour apres authentification
+  callbackURL: '/auth/google/callback', //url de retour apres authentification
+  proxy: true 
   }, 
   (accessToken, refreshToken, profile, done) => { //callback fonction avec les arguments token pour les cookies a venir, le profile et done pour dire à google qu'on a fin i avec notre requete
     User.findOne({ googleId: profile.id }).then( existingUser => {  //methode mongoose asynchrone avec des promesses donc
